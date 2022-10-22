@@ -8,13 +8,18 @@ spring:
       - id: employeeModule
         uri: http://localhost:8081/
         predicates:
-        - Path=/employee/**
+        - Path=/d/api/employee/**
+        filters:
+        - RewritePath=/d/api/employee/?(?<segment>.*), /$\{segment}
+        - EmployeeFilter
       - id: consumerModule
         uri: http://localhost:8082/
         predicates:
-        - Path=/consumer/**
+        - Path=/d/api/consumer/**
+        filters:
+        - RewritePath=/d/api/consumer/?(?<segment>.*), /$\{segment}
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
+    org.springframework.cloud.gateway: debug
+    reactor.netty.http.client: debug
