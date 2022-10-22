@@ -4,6 +4,10 @@ server:
 spring:
   cloud:
     gateway:
+      default-filters:
+      - name: LoggerFilter
+        args:
+          order: -1
       routes:
       - id: employeeModule
         uri: http://localhost:8081/
@@ -11,9 +15,6 @@ spring:
         - Path=/d/api/employee/**
         filters:
         - RewritePath=/d/api/employee/?(?<segment>.*), /$\{segment}
-        - name: LoggerFilter
-          args:
-            order: -1
       - id: consumerModule
         uri: http://localhost:8082/
         predicates:
