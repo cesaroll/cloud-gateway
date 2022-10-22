@@ -15,9 +15,9 @@ spring:
       - id: consumerModule
         uri: http://localhost:8082/
         predicates:
-        - Path=/d/api/consumer/**
+        - Path=/d/api/consumer/{segment}
         filters:
-        - RewritePath=/d/api/employee/?(?<segment>.*), /$\{segment}
+        - SetPath=/{segment}
 
 logging:
   level:
